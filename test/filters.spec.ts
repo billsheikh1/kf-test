@@ -1,5 +1,5 @@
 import { describe, test, expect } from '@jest/globals';
-import { filterOutagesByDate } from '../src/filters';
+import { filterByDeviceIds, filterOutagesByDate } from '../src/filters';
 
 describe('Filter Tests', () => {
     describe('Filter by date', () => {
@@ -78,6 +78,56 @@ describe('Filter Tests', () => {
                     "end": "2021-08-29T00:37:42.253Z"
                 }
             ]));
-        })
+        });
+    });
+
+    describe('Filter by device ids', () => {
+        test('Valid list of IDs', () => {
+            const ids = [
+                '1',
+                '4'
+            ];
+
+            const data = [
+                {
+                    id: '1',
+                    begin: 'begin',
+                    end: 'end'
+                },
+                {
+                    id: '10',
+                    begin: 'begin', 
+                    end: 'end'
+                },
+                {
+                    id: '4',
+                    begin: 'begin',
+                    end: 'end'
+                },
+                {
+                    id: '40',
+                    begin: 'begin',
+                    end: 'end'
+                }
+            ];
+
+            const filteredOutages = filterByDeviceIds({
+                outages: data,
+                deviceIds: ids
+            });
+
+            expect(filteredOutages).toEqual(expect.arrayContaining([
+                {
+                    id: '1',
+                    begin: 'begin',
+                    end: 'end'
+                },
+                {
+                    id: '4',
+                    begin: 'begin',
+                    end: 'end'
+                }
+            ]));
+        });
     });
 });

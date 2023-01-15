@@ -1,6 +1,5 @@
-type EnhancedOutages = {
+export type Outages = {
     id: string;
-    name: string;
     begin: string;
     end: string;
 }

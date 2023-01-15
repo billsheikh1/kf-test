@@ -1,4 +1,4 @@
-import { fetchOutages, fetchSiteInfo } from './fetchers';
+import { fetchOutages, fetchSiteInfo } from './api';
 import { filterOutagesByDate } from './filters';
 
 export default async function run() {

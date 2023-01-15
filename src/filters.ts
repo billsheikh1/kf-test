@@ -1,7 +1,5 @@
-function dateValidator(date: string): void {
-    const dateRegex = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)$/;
-    if (!dateRegex.test(date) || !dateRegex.test(date)) throw new Error('Invalid date format.');
-}
+import { Outages } from './types/Outages';
+import { dateValidator } from './validators';
 
 export function filterOutagesByDate(params: { outages: Outages[], startDate?: string, endDate?: string }): Outages[] {
 
@@ -40,4 +38,16 @@ export function filterOutagesByDate(params: { outages: Outages[], startDate?: st
     }
 
     return outages;
+}
+
+export function filterByDeviceIds(params: { outages: Outages[], deviceIds: string[] }): Outages[] {
+
+    const { outages, deviceIds } = params;
+    const filteredOutages: Outages[] = [];
+
+    deviceIds.map((id: string) => {
+        filteredOutages.push(outages.find((outage) => outage.id === id));
+    });
+
+    return filteredOutages;
 }
