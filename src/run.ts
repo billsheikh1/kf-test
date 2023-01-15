@@ -27,6 +27,5 @@ export default async function run(query: OutageQuery) {
     const enhancedOutages = constructEnhancedOutages(filteredOutagesByDeviceIds, devices);
 
     const postResponse = await postEhanchedOutages(siteId, enhancedOutages);
-    console.log('post', postResponse);
     return postResponse;
 };
