@@ -79,6 +79,17 @@ describe('Filter Tests', () => {
                 }
             ]));
         });
+
+        test('No results', () => {
+            const startDate = `2023-01-01T00:00:00.000Z`;
+            const filteredOutages = filterOutagesByDate({outages, startDate});
+            expect(filteredOutages).toEqual(expect.arrayContaining([]));
+        });
+
+        test('Invalid date', () => {
+            const startDate = '4th jan 2022';
+            expect(() => filterOutagesByDate({outages, startDate})).toThrow(Error);
+        })
     });
 
     describe('Filter by device ids', () => {
