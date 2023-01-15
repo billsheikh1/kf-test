@@ -3,17 +3,16 @@ import { EnhancedOutages } from './types/EnhancedOutages';
 import { Outages } from './types/Outages';
 import { SiteInfo } from './types/SiteInfo';
 import { Endpoints } from './endpoints';
+import config from '../assets/config.json';
 
 export async function fetchOutages(): Promise<[Outages]> {
-    console.log('key', process.env.API_KEY);
-    console.log('base', process.env.BASE_ENDPOINT);
     try {
         const response = await axios({
             method: 'get',
-            url:`${process.env.BASE_ENDPOINT}${Endpoints.outages}`,
+            url:`${config.baseEndpoint}${Endpoints.outages}`,
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.API_KEY
+                'x-api-key': config.apiKey
             }
         });
     
@@ -22,7 +21,7 @@ export async function fetchOutages(): Promise<[Outages]> {
         return await response.data as Promise<[Outages]>;
     }
     catch (err) {
-        console.error('outages', err);
+        console.error('outages', err.message);
     }
 }
 
@@ -30,10 +29,10 @@ export async function fetchSiteInfo(siteId: string): Promise<SiteInfo> {
     try {
         const response = await axios({
             method: 'get',
-            url:`${process.env.BASE_ENDPOINT}${Endpoints.siteInfo}/${siteId}`,
+            url:`${config.baseEndpoint}${Endpoints.siteInfo}/${siteId}`,
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.API_KEY
+                'x-api-key': config.apiKey
             }
         });
     
@@ -43,7 +42,7 @@ export async function fetchSiteInfo(siteId: string): Promise<SiteInfo> {
         return await response.data as Promise<SiteInfo>;
     }
     catch(err) {
-        console.error('siteInfo', err);
+        console.error('siteInfo', err.message);
     }
 }
 
@@ -51,11 +50,11 @@ export async function postEhanchedOutages(siteId: string, body: EnhancedOutages[
     try {
         const response = await axios({
             method: 'post',
-            url: `${process.env.BASE_ENDPOINT}${Endpoints.siteOutages}/${siteId}`,
-            data: JSON.stringify(body),
+            url: `${config.baseEndpoint}${Endpoints.siteOutages}/${siteId}`,
+            data: body,
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.API_KEY
+                'x-api-key': config.apiKey
             }
         });
     
@@ -64,6 +63,6 @@ export async function postEhanchedOutages(siteId: string, body: EnhancedOutages[
         return await response.data;
     }
     catch (err) {
-        console.error('post', err);
+        console.error('post', err.message);
     }
 }

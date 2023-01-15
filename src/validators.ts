@@ -1,9 +1,13 @@
-export function dateValidator(date: string): void {
+export function dateIsValid(date: string): boolean {
     const dateRegex = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)$/;
-    if (!dateRegex.test(date)) throw new Error('Invalid date format.');
+    return dateRegex.test(date);
 };
 
-export function siteIdValidator(id: string): void {
+export function siteIdIsValid(id: string): boolean {
     const idRegex = /^([a-z]+(-[a-z]+)*)$/;
-    if (!idRegex.test(id)) throw new Error('Invalid id format.');
+    return idRegex.test(id);
+};
+
+export function argumentsAreValid(args: string[]): boolean {
+    return !(args.length < 1 || args.length > 3);
 };
