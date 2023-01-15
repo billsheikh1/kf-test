@@ -28,4 +28,5 @@ export default async function run(query: OutageQuery) {
 
     const postResponse = await postEhanchedOutages(siteId, enhancedOutages);
     console.log('post', postResponse);
+    return postResponse;
 };

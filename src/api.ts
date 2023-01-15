@@ -16,8 +16,6 @@ export async function fetchOutages(): Promise<[Outages]> {
             }
         });
     
-        if (!(response.statusText === 'OK')) throw new Error(response.statusText);
-    
         return await response.data as Promise<[Outages]>;
     }
     catch (err) {
@@ -35,9 +33,6 @@ export async function fetchSiteInfo(siteId: string): Promise<SiteInfo> {
                 'x-api-key': config.apiKey
             }
         });
-    
-    
-        if (!(response.statusText === 'OK')) throw new Error(response.statusText);
     
         return await response.data as Promise<SiteInfo>;
     }
@@ -58,9 +53,7 @@ export async function postEhanchedOutages(siteId: string, body: EnhancedOutages[
             }
         });
     
-        if (!(response.statusText === 'OK')) throw new Error(response.statusText);
-    
-        return await response.data;
+        return await response.status;
     }
     catch (err) {
         console.error('post', err.message);
